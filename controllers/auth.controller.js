@@ -26,18 +26,28 @@ module.exports.signUp = async (req, res) => {
 
 
 module.exports.signIn = async (req, res) => {
-    const { email, password } = req.body
+    const { email, password } = req.body;
 
     try {
         const user = await UserModel.login(email, password);
-        const token = createToken(user._id)
-        res.cookie('jwt', token, { httpOnly: true, maxAge })
-        res.status(200).json({ user: user._id })
+        const token = createToken(user._id);
+        
+        // Définir le domaine et le chemin du cookie pour Render
+        const cookieOptions = {
+            httpOnly: true,
+            maxAge, 
+            domain: 'https://doom-app-login.onrender.com', 
+            path: '/', // Utilisez '/' pour que le cookie soit accessible depuis toutes les routes
+        };
+
+        res.cookie('jwt', token, cookieOptions);
+        res.status(200).json({ user: user._id });
     } catch (err) {
         const errors = signInErrors(err);
         res.status(200).json({ errors });
     }
-}
+};
+
 
 module.exports.logout = (req, res) => {
     res.cookie('jwt', '', { maxAge: 2 * 60 * 1000 }); // 2 minutes
