@@ -14,9 +14,12 @@ const cors = require("cors"); //Pour gérer qui peut avoir accès à notre Api
 const app = express();
 const port = 5000;
 
-// Pour notre api
+app.use(cors({
+    origin: 'https://doom-app-login.onrender.com', // Remplacez par le domaine de votre application
+    credentials: true, // Permet les cookies et les en-têtes d'autorisation
+}));
 
-app.use(cors());
+
 app.get("/", (req, res) => {
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.send("API is running..");
