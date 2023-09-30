@@ -8,7 +8,7 @@ module.exports.checkUser = (req, res, next) => {
             if (err) {
                 res.locals.user = null;
                 // Définissez le domaine complet ici
-                res.cookie('jwt', '', { maxAge: 2 * 60 * 1000, domain: 'https://doom-app-login.onrender.com' });
+                res.cookie('jwt', '', { maxAge: 5 * 60 * 1000, domain: 'doom-app-login.onrender.com' });
                 next();
             } else {
                 let user = await UserModel.findById(decodedToken.id);
