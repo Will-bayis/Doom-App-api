@@ -36,7 +36,7 @@ app.use(cookieParser());
 // jwt
 app.get('*', checkUser);
 app.get('/jwtid', requireAuth, (req, res) => {
-  res.status(200).send(res.locals.users._id);
+   res.status(200).json({ user: user._id });
 });
 
 
