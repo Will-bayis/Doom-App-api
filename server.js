@@ -21,9 +21,6 @@ const corsOptions = {
 }
 app.use(cors(corsOptions));
 
-app.get("/", (req, res) => {
-    res.setHeader("Access-Control-Allow-Credentials","true");
-    res.send("API is runing..");
 
 // connection à la DB
 connectDB();
