@@ -32,8 +32,6 @@ module.exports.requireAuth = (req, res, next) => {
         // En cas d'erreur de vérification JWT, renvoyer une réponse 401 (Non autorisé)
         res.status(401).json({ error: "Token invalide" });
       } else {
-        // Si la vérification est réussie, ajoutez les informations du token à la requête
-        req.user = decodedToken;
         next();
       }
     });
