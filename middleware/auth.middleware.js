@@ -23,22 +23,23 @@ module.exports.checkUser = (req, res, next) => {
 };
 
 
+
 module.exports.requireAuth = (req, res, next) => {
-    const token = req.cookies.jwt;
-    if (token) {
-        jwt.verify(token, process.env.TOKEN_SECRET, async (err, decodedToken) => {
-            if (err) {
-                // En cas d'erreur de vérification JWT, renvoyer une réponse 401 (Non autorisé)
-                res.status(401).json({ error: 'Token invalide' });
-            } else {
-                // Si la vérification est réussie, poursuivre la demande
-                console.log(decodedToken.id);
-                next();
-            }
-        });
-    } else {
-        // Si aucun token n'est présent, renvoyer une réponse 401 (Non autorisé)
-        res.status(401).json({ error: 'Token manquant' });
-    }
+  const token = req.cookies.jwt;
+  if (token) {
+    jwt.verify(token, process.env.TOKEN_SECRET, async (err, decodedToken) => {
+      if (err) {
+        // En cas d'erreur de vérification JWT, renvoyer une réponse 401 (Non autorisé)
+        res.status(401).json({ error: "Token invalide" });
+      } else {
+        // Si la vérification est réussie, ajoutez les informations du token à la requête
+        req.user = decodedToken;
+        next();
+      }
+    });
+  } else {
+    // Si aucun token n'est présent, renvoyer une réponse 401 (Non autorisé)
+    res.status(401).json({ error: "Token manquant" });
+  }
 };
 
