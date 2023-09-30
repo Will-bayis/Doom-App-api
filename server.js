@@ -8,11 +8,12 @@ const { checkUser, requireAuth } = require('./middleware/auth.middleware');
 const userRoutes = require('./routes/user.routes');
 const postRoutes = require('./routes/post.routes');
 mongoose.set("strictQuery", true);
+const jwtRoutes = require('./routes/jwtRoutes'); // les nouvelles routes
 
 const cors = require("cors"); //Pour gérer qui peut avoir accès à notre Api
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 app.use(cors({
     origin: 'https://doom-app-login.onrender.com', // Remplacez par le domaine de votre application
@@ -49,6 +50,9 @@ app.get('/jwtid', requireAuth, (req, res) => {
 app.use('/api/user', userRoutes);
 app.use('/api/post', postRoutes);
 
+
+// Utilisez les nouvelles routes
+app.use('/jwt', jwtRoutes);
 
 
 
