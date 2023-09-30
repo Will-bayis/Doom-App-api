@@ -33,13 +33,7 @@ module.exports.signIn = async (req, res) => {
         const token = createToken(user._id);
         
         // Définir le domaine et le chemin du cookie pour Render
-        const cookieOptions = {
-            httpOnly: true,
-            maxAge, 
-            domain: 'https://doom-app-login.onrender.com', 
-            path: '/', // Utilisez '/' pour que le cookie soit accessible depuis toutes les routes
-        };
-
+        const cookieOptions = { httpOnly: true, maxAge, domain: 'doom-app-login.onrender.com', path: '/' };
         res.cookie('jwt', token, cookieOptions);
         res.status(200).json({ user: user._id });
     } catch (err) {
