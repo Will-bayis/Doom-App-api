@@ -12,7 +12,7 @@ const port = 5000;
 
 // Pour notre api
 const corsOptions = {
-    origin: '*',
+    origin: 'https://doom-app-login.onrender.com',
     credentials: true,
     'allowedHeaders': ['sessionId', 'Content-Type'],
     'exposedHeaders': ['sessionId'],
