@@ -12,7 +12,7 @@ const port = 5000;
 
 // Pour notre api
 const corsOptions = {
-    origin: process.env.CLIENT_URL,
+    origin: '*',
     credentials: true,
     'allowedHeaders': ['sessionId', 'Content-Type'],
     'exposedHeaders': ['sessionId'],
