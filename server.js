@@ -15,7 +15,8 @@ const port = process.env.PORT || 5000;
 
 app.use(cors({
     origin: 'https://doom-app-login.onrender.com', // Remplacez par le domaine de votre application
-    credentials: true, // Permet les cookies et les en-têtes d'autorisation
+    credentials: true,// Permet les cookies et les en-têtes d'autorisation
+    sameSite: "none", // Utilisez "none" si vous utilisez des cookies entre des domaines différents
 }));
 
 
@@ -36,7 +37,7 @@ app.use(cookieParser());
 // jwt
 app.get('*', checkUser);
 app.get('/jwtid', requireAuth, (req, res) => {
-   res.status(200).json({ user: user._id });
+   res.status(200).json({ user: req.user._id });
 });
 
 
