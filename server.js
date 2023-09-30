@@ -8,8 +8,6 @@ const { checkUser, requireAuth } = require('./middleware/auth.middleware');
 const userRoutes = require('./routes/user.routes');
 const postRoutes = require('./routes/post.routes');
 mongoose.set("strictQuery", true);
-const jwtRoutes = require('./routes/jwtRoutes'); // les nouvelles routes
-
 const cors = require("cors"); //Pour gérer qui peut avoir accès à notre Api
 
 const app = express();
@@ -26,11 +24,8 @@ app.get("/", (req, res) => {
     res.send("API is running..");
 });
 
-
-
 // connection à la DB
 connectDB();
-
 
 // Middleware
 app.use(express.json()); // Remplace bodyParser.json()
@@ -44,16 +39,9 @@ app.get('/jwtid', requireAuth, (req, res) => {
     res.status(200).send(res.locals.user._id)
 });
 
-
-
 // Routes
 app.use('/api/user', userRoutes);
 app.use('/api/post', postRoutes);
-
-
-// Utilisez les nouvelles routes
-app.use('/jwt', jwtRoutes);
-
 
 
 //lancer le serveur
